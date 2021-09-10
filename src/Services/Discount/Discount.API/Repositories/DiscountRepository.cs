@@ -28,7 +28,7 @@ namespace Discount.API.Repositories
             return coupon;
         }
 
-        public async  Task<bool> CreateDiscount(Coupon coupon)
+        public async Task<bool> CreateDiscount(Coupon coupon)
         {
             using var connection = new NpgsqlConnection
                 (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));

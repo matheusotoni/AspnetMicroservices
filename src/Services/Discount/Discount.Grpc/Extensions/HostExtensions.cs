@@ -56,7 +56,7 @@ namespace Discount.Grpc.Extensions
                 {
                     logger.LogError(ex, "An error occurred while migrating the postresql database");
 
-                    if(retryForAvailability < 50)
+                    if (retryForAvailability < 50)
                     {
                         retryForAvailability++;
 
