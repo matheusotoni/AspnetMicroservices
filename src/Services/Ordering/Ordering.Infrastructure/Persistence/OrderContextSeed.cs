@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.Persistence
 {
-    public class OrderContexSeed
+    public class OrderContextSeed
     {
-        public static async Task SeedAsync(OrderContext orderContext, ILogger<OrderContexSeed> logger)
+        public static async Task SeedAsync(OrderContext orderContext, ILogger<OrderContextSeed> logger)
         {
             if (!orderContext.Orders.Any())
             {
                 orderContext.Orders.AddRange(GetPreconfiguredOrders());
                 await orderContext.SaveChangesAsync();
-                logger.LogInformation("OrderContexSeed -> Seed database associated with context {DbContextName}", typeof(OrderContext).Name);
+                logger.LogInformation("OrderContextSeed -> Seed database associated with context {DbContextName}", typeof(OrderContext).Name);
             }
         }
 
