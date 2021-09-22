@@ -4,7 +4,9 @@ using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using EventBusMessages.Events;
 using MassTransit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,13 +21,15 @@ namespace Basket.API.Controllers
         private readonly DiscountGrpcService _discountGrpcService;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IMapper _mapper;
+        private readonly ILogger<BasketController> _logger;
 
-        public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcService, IPublishEndpoint publishEndpoint, IMapper mapper)
+        public BasketController(IBasketRepository repository, DiscountGrpcService discountGrpcService, IPublishEndpoint publishEndpoint, IMapper mapper, ILogger<BasketController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _discountGrpcService = discountGrpcService ?? throw new ArgumentNullException(nameof(discountGrpcService));
             _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
@@ -38,18 +42,28 @@ namespace Basket.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.ServiceUnavailable)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
         {
-            // TODO : Communicate with Discount.Grpc
-            // and calculate latesst prices of product into shopping cart
-            // consume Discount Grpc
-            foreach (var item in basket.Items)
+            try
             {
-                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
-                item.Price -= coupon.Amount;
-            }
+                // TODO : Communicate with Discount.Grpc
+                // and calculate latesst prices of product into shopping cart
+                // consume Discount Grpc
+                foreach (var item in basket.Items)
+                {
+                    var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
+                    item.Price -= coupon.Amount;
+                }
 
-            return Ok(await _repository.UpdateBasket(basket));
+                return Ok(await _repository.UpdateBasket(basket));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message ?? ex.InnerException.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);                
+                //return BadRequest($"Ocorre um erro - {ex.Message}");
+            }
         }
 
         [HttpDelete("{userName}", Name = "DeleteBasket")]
