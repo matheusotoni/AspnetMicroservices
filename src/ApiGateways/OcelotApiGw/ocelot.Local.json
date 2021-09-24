@@ -12,6 +12,9 @@
       ],
       "UpstreamPathTemplate": "/Catalog",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 15
+      }
     },
     {
       "DownstreamPathTemplate": "/api/v1/Catalog/{id}",
