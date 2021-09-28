@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace AspnetRunBasics.Services
 {
-    interface IOrderService
+    public interface IOrderService
     {
         Task<IEnumerable<OrderResponseModel>> GetOrdersByUserName(string userName);
     }
