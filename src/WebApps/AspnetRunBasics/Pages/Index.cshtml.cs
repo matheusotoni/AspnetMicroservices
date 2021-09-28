@@ -43,7 +43,7 @@ namespace AspnetRunBasics.Pages
                 Color = "Black"
             });
 
-            var basketUpdated = await _basketService.UpdateBasket(basket);
+            await _basketService.UpdateBasket(basket);
             return RedirectToPage("Cart");
         }
     }
