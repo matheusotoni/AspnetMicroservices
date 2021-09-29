@@ -8,12 +8,24 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   basketdb:
     container_name: basketdb
     restart: always
     ports:
       - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   discountdb:
     container_name: discountdb
@@ -26,6 +38,12 @@ services:
      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   orderdb:
     container_name: orderdb
@@ -35,6 +53,12 @@ services:
     restart: always
     ports:
         - "1433:1433"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   rabbitmq:
     container_name: rabbitmq
@@ -42,6 +66,12 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   pgadmin:
     container_name: pgadmin
@@ -53,6 +83,12 @@ services:
      - "5050:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   portainer:
     container_name: portainer
@@ -63,6 +99,12 @@ services:
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - portainer_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   catalog.api:
     container_name: catalog.api
@@ -73,6 +115,12 @@ services:
       - catalogdb
     ports:
       - "8000:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   basket.api:
     container_name: basket.api
@@ -86,6 +134,12 @@ services:
       - rabbitmq
     ports:
       - "8001:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   discount.api:
     container_name: discount.api
@@ -96,6 +150,12 @@ services:
       - discountdb
     ports:
       - "8002:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   discount.grpc:
     container_name: discount.grpc
@@ -106,6 +166,12 @@ services:
       - discountdb
     ports:
       - "8003:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   ordering.api:
     container_name: ordering.api
@@ -118,6 +184,12 @@ services:
       - rabbitmq
     ports:
       - "8004:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   ocelotapigw:
     container_name: ocelotapigw
@@ -130,6 +202,12 @@ services:
       - ordering.api
     ports:
       - "8010:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
 
   shopping.agregator:
     container_name: shopping.agregator
@@ -144,3 +222,9 @@ services:
       - ordering.api
     ports:
       - "8005:80"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 200M
