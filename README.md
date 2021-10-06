@@ -11,6 +11,9 @@ AspnetMicroservices
 * **API Gateway -> http://host.docker.internal:8010/Catalog**
 * **Rabbit Management Dashboard -> http://host.docker.internal:15672**   -- guest/guest
 * **Portainer -> http://host.docker.internal:9000**   -- admin/admin1234
-* **pgAdmin PostgreSQL -> http://host.docker.internal:5050**   -- admin@aspnetrun.com/admin1234
+* **pgAdmin PostgreSQL -> http://host.docker.internal:5050**   -- admin@admin.com/admin123
 * **Elasticsearch -> http://host.docker.internal:9200**
+* **Elasticsearch -> http://host.docker.internal:9200** -- To Be Develop
+* **Kibana -> http://host.docker.internal:5601** -- To Be Develop
+* **Web Status -> http://host.docker.internal:8007** -- To Be Develop
 * **Web UI -> http://host.docker.internal:8006**
