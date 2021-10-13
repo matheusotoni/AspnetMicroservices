@@ -1,5 +1,6 @@
 using Catalog.API.Data;
 using Catalog.API.Repositors;
+using Commom.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace Catalog.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<LoggingDelegatingHandler>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
