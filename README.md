@@ -13,7 +13,6 @@ AspnetMicroservices
 * **Portainer -> http://host.docker.internal:9000**   -- admin/admin1234
 * **pgAdmin PostgreSQL -> http://host.docker.internal:5050**   -- admin@admin.com/admin123
 * **Elasticsearch -> http://host.docker.internal:9200**
-* **Elasticsearch -> http://host.docker.internal:9200** -- To Be Develop
-* **Kibana -> http://host.docker.internal:5601** -- To Be Develop
-* **Web Status -> http://host.docker.internal:8007** -- To Be Develop
+* **Kibana -> http://host.docker.internal:5601**
+* **Web Status -> http://host.docker.internal:8007**
 * **Web UI -> http://host.docker.internal:8006**
