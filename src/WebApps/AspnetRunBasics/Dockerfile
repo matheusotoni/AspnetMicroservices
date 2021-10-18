@@ -3,10 +3,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["WebApps/AspnetRunBasics/AspnetRunBasics.csproj", "WebApps/AspnetRunBasics/"]
+COPY ["BuildingBlocks/Commom.Logging/Commom.Logging.csproj", "BuildingBlocks/Commom.Logging/"]
 RUN dotnet restore "WebApps/AspnetRunBasics/AspnetRunBasics.csproj"
 COPY . .
 WORKDIR "/src/WebApps/AspnetRunBasics"
