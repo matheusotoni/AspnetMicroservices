@@ -58,7 +58,7 @@ services:
       context: .
       dockerfile: ApiGateways/OcelotApiGw/Dockerfile
 
-  shopping.agregator:
+  shopping.aggregator:
     image: ${DOCKER_REGISTRY-}shoppingagregator
     build:
       context: .
@@ -76,6 +76,11 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.14.1
 
+  webstatus:
+    image: ${DOCKER_REGISTRY-}webstatus
+    build:
+      context: .
+      dockerfile: WebApps/WebStatus/Dockerfile
 
 volumes:
   mongo_data: 
