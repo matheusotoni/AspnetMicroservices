@@ -9,4 +9,8 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Commom.Logging\Commom.Logging.csproj" />
+  </ItemGroup>
+
 </Project>
